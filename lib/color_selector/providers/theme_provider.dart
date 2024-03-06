@@ -9,7 +9,10 @@ class ThemeProvider extends ChangeNotifier {
   late ColorScheme _systemColorScheme;
 
   Color get colorSeed => _colorSeed;
-  bool get isDarkMode => _brightness == Brightness.dark ? true : false;
+  Brightness get _curBrightness =>
+      _isSystemThemeSelected ? _systemColorScheme.brightness : _brightness;
+  bool get isDarkMode => _curBrightness == Brightness.dark ? true : false;
+  bool get isDarkModeSet => _brightness == Brightness.dark ? true : false;
   bool get isSystemThemeSelected => _isSystemThemeSelected;
 
   ColorScheme get _cstmColorScheme => ColorScheme.fromSeed(
@@ -56,7 +59,7 @@ class ThemeProvider extends ChangeNotifier {
   }
 
   Future<void> toggleBrightness() async {
-    _brightness = !isDarkMode ? Brightness.dark : Brightness.light;
+    _brightness = !isDarkModeSet ? Brightness.dark : Brightness.light;
     await SharedPrefs.setBrightness(_brightness);
     notifyListeners();
   }

@@ -92,7 +92,7 @@ class Home extends StatelessWidget {
                                     fontWeight: FontWeight.w300,
                                   ),
                                 ),
-                                value: provider.isDarkMode,
+                                value: provider.isDarkModeSet,
                                 onChanged: provider.setBoolBrightness,
                               ),
                             ),
